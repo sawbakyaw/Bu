@@ -60,7 +60,7 @@ export default function BookingsPage() {
     paid: bookings.filter(b => b.payment_status === 'paid').length,
     pending: bookings.filter(b => b.payment_status === 'pending').length,
     failed: bookings.filter(b => b.payment_status === 'failed').length,
-    revenue: bookings.filter(b => b.payment_status === 'paid').reduce((sum, b) => sum + Number(b.total_amount), 0),
+    revenue: bookings.filter(b => b.payment_status === 'paid').reduce((sum: number, b: any) => sum + Number(b.total_amount), 0),
   };
 
   const formatCurrency = (amount: number) => {

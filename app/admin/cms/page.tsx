@@ -62,7 +62,7 @@ export default function CMSPage() {
     totalPages: pages.length,
     published: pages.filter(p => p.is_published).length,
     drafts: pages.filter(p => !p.is_published).length,
-    totalViews: pages.reduce((sum, p) => sum + (p.views || 0), 0),
+    totalViews: pages.reduce((sum: number, p: any) => sum + (p.views || 0), 0),
   };
 
   const settingGroups = [

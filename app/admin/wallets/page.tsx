@@ -64,15 +64,15 @@ export default function WalletsPage() {
 
   const stats = {
     totalWallets: wallets.length,
-    totalBalance: wallets.reduce((sum, w) => sum + Number(w.balance), 0),
+    totalBalance: wallets.reduce((sum: number, w: any) => sum + Number(w.balance), 0),
     totalPending: wallets.filter(w => w.status === 'pending').length,
     totalFrozen: wallets.filter(w => w.status === 'frozen').length,
     todayDeposits: transactions
       .filter(t => t.transaction_type === 'deposit' && isToday(t.created_at))
-      .reduce((sum, t) => sum + Number(t.amount), 0),
+      .reduce((sum: number, t: any) => sum + Number(t.amount), 0),
     todayWithdrawals: transactions
       .filter(t => t.transaction_type === 'withdrawal' && isToday(t.created_at))
-      .reduce((sum, t) => sum + Number(t.amount), 0),
+      .reduce((sum: number, t: any) => sum + Number(t.amount), 0),
   };
 
   function isToday(date: string) {

@@ -64,9 +64,9 @@ export default function AgentDashboardPage() {
         .eq('owner_id', agId)
         .single();
 
-      const totalCommission = bookings?.reduce((sum, b) => sum + Number(b.agent_commission || 0), 0) || 0;
-      const todayBookings = bookings?.filter(b => new Date(b.created_at) >= today) || [];
-      const todayCommission = todayBookings.reduce((sum, b) => sum + Number(b.agent_commission || 0), 0);
+      const totalCommission = bookings?.reduce((sum: number, b: any) => sum + Number(b.agent_commission || 0), 0) || 0;
+      const todayBookings = bookings?.filter((b: any) => new Date(b.created_at) >= today) || [];
+      const todayCommission = todayBookings.reduce((sum: number, b: any) => sum + Number(b.agent_commission || 0), 0);
 
       setStats({
         totalBookings: bookings?.length || 0,

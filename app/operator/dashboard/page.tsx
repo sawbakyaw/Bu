@@ -80,9 +80,9 @@ export default function OperatorDashboardPage() {
         .order('created_at', { ascending: false })
         .limit(10);
 
-      const totalRevenue = bookings?.reduce((sum, b) => sum + Number(b.total_amount), 0) || 0;
-      const todayBookings = bookings?.filter(b => new Date(b.created_at) >= today) || [];
-      const todayRevenue = todayBookings.reduce((sum, b) => sum + Number(b.total_amount), 0);
+      const totalRevenue = bookings?.reduce((sum: number, b: any) => sum + Number(b.total_amount), 0) || 0;
+      const todayBookings = bookings?.filter((b: any) => new Date(b.created_at) >= today) || [];
+      const todayRevenue = todayBookings.reduce((sum: number, b: any) => sum + Number(b.total_amount), 0);
 
       const activeTrips = trips?.filter(t => t.status === 'active').length || 0;
       const upcomingTrips = trips?.filter(t => new Date(t.departure_time) > new Date()).slice(0, 5) || [];
