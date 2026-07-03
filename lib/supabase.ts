@@ -1,10 +1,10 @@
 import { createClient } from '@supabase/supabase-js';
 
-let supabase: ReturnType<typeof createClient> | null = null;
+let _supabaseClient: ReturnType<typeof createClient> | null = null;
 
 export function getSupabaseClient() {
-  if (supabase) {
-    return supabase;
+  if (_supabaseClient) {
+    return _supabaseClient;
   }
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -17,8 +17,8 @@ export function getSupabaseClient() {
     throw new Error('supabaseAnonKey is required');
   }
 
-  supabase = createClient(supabaseUrl, supabaseAnonKey);
-  return supabase;
+  _supabaseClient = createClient(supabaseUrl, supabaseAnonKey);
+  return _supabaseClient;
 }
 
 // For backwards compatibility, export a lazy getter
