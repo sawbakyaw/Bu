@@ -1,9 +1,33 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+let supabase: ReturnType<typeof createClient> | null = null;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+export function getSupabaseClient() {
+  if (supabase) {
+    return supabase;
+  }
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl) {
+    throw new Error('supabaseUrl is required');
+  }
+  if (!supabaseAnonKey) {
+    throw new Error('supabaseAnonKey is required');
+  }
+
+  supabase = createClient(supabaseUrl, supabaseAnonKey);
+  return supabase;
+}
+
+// For backwards compatibility, export a lazy getter
+export const supabase = new Proxy({} as any, {
+  get: (target, prop) => {
+    const client = getSupabaseClient();
+    return client[prop as string];
+  },
+});
 
 export type Json =
   | string

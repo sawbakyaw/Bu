@@ -34,6 +34,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Fetch user profile and wallet
   const fetchUserData = useCallback(async (userId: string): Promise<AuthUser | null> => {
     try {
+      if (!supabase) {
+        console.warn('Supabase not configured');
+        return null;
+      }
+
       // Fetch profile with role
       const { data: profile, error: profileError } = await supabase
         .from('user_profiles')
@@ -90,6 +95,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initAuth = async () => {
       try {
+        if (!supabase) {
+          setState({ user: null, loading: false, error: 'Supabase not configured' });
+          return;
+        }
+
         const { data: { session } } = await supabase.auth.getSession();
 
         if (session?.user) {
@@ -111,6 +121,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
 
     // Listen for auth changes
+    if (!supabase) return;
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (event === 'SIGNED_IN' && session?.user) {
         const userData = await fetchUserData(session.user.id);
@@ -180,6 +192,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Sign up
   const signUp = async (email: string, password: string, name: string, phone: string) => {
     try {
+      if (!supabase) {
+        return { error: 'Supabase not configured' };
+      }
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -239,6 +255,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Sign in
   const signIn = async (email: string, password: string) => {
     try {
+      if (!supabase) {
+        return { error: 'Supabase not configured' };
+      }
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -268,7 +288,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Sign out
   const signOut = async () => {
-    await supabase.auth.signOut();
+    if (supabase) {
+      await supabase.auth.signOut();
+    }
     setState({ user: null, loading: false, error: null });
     router.push('/');
   };
