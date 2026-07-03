@@ -40,7 +40,7 @@ export default function CMSPage() {
 
       // Convert settings array to object
       const settingsObj: Record<string, any> = {};
-      settingsData?.forEach((s) => {
+      settingsData?.forEach((s: any) => {
         settingsObj[s.key] = s.value;
       });
 
