@@ -66,8 +66,8 @@ function ConfirmationPage() {
               .select('*')
               .in('id', [route.from_city_id, route.to_city_id]);
 
-            const fromCity = cities?.find(c => c.id === route.from_city_id);
-            const toCity = cities?.find(c => c.id === route.to_city_id);
+            const fromCity = cities?.find((c: any) => c.id === route.from_city_id);
+            const toCity = cities?.find((c: any) => c.id === route.to_city_id);
 
             setTrip({
               ...tripData,
