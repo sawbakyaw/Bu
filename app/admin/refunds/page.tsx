@@ -66,7 +66,7 @@ export default function RefundsPage() {
     approved: refunds.filter(r => r.status === 'approved').length,
     completed: refunds.filter(r => r.status === 'completed').length,
     rejected: refunds.filter(r => r.status === 'rejected').length,
-    totalAmount: refunds.filter(r => r.status === 'completed').reduce((sum, r) => sum + Number(r.refund_amount), 0),
+    totalAmount: refunds.filter(r => r.status === 'completed').reduce((sum: number, r: any) => sum + Number(r.refund_amount), 0),
   };
 
   const handleAction = async (refundId: string, action: 'approve' | 'reject') => {

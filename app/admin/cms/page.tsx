@@ -40,7 +40,7 @@ export default function CMSPage() {
 
       // Convert settings array to object
       const settingsObj: Record<string, any> = {};
-      settingsData?.forEach((s) => {
+      settingsData?.forEach((s: any) => {
         settingsObj[s.key] = s.value;
       });
 
@@ -62,7 +62,7 @@ export default function CMSPage() {
     totalPages: pages.length,
     published: pages.filter(p => p.is_published).length,
     drafts: pages.filter(p => !p.is_published).length,
-    totalViews: pages.reduce((sum, p) => sum + (p.views || 0), 0),
+    totalViews: pages.reduce((sum: number, p: any) => sum + (p.views || 0), 0),
   };
 
   const settingGroups = [

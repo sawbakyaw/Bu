@@ -63,6 +63,14 @@ export default function HomePage() {
 
   const fetchData = async () => {
     try {
+      if (!supabase) {
+        console.warn('Supabase not configured');
+        setOperators([]);
+        setPopularTrips([]);
+        setLoading(false);
+        return;
+      }
+
       // Get operators with logos
       const { data: operatorsData } = await supabase
         .from('operators')

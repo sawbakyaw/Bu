@@ -54,10 +54,10 @@ export default function CommissionsPage() {
     pendingPayouts: payouts.filter(p => p.status === 'pending').length,
     totalCommission: payouts
       .filter(p => p.status === 'completed')
-      .reduce((sum, p) => sum + Number(p.amount), 0),
+      .reduce((sum: number, p: any) => sum + Number(p.amount), 0),
     pendingAmount: payouts
       .filter(p => p.status === 'pending')
-      .reduce((sum, p) => sum + Number(p.amount), 0),
+      .reduce((sum: number, p: any) => sum + Number(p.amount), 0),
   };
 
   const formatCurrency = (amount: number) => {

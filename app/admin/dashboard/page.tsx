@@ -58,15 +58,15 @@ export default function AdminDashboardPage() {
         .eq('is_active', true);
 
       // Calculate revenue
-      const totalRevenue = bookings?.reduce((sum, b) => sum + Number(b.total_amount), 0) || 0;
+      const totalRevenue = bookings?.reduce((sum: number, b: any) => sum + Number(b.total_amount), 0) || 0;
       const todayRevenue = bookings
-        ?.filter(b => new Date(b.created_at) >= today)
-        .reduce((sum, b) => sum + Number(b.total_amount), 0) || 0;
+        ?.filter((b: any) => new Date(b.created_at) >= today)
+        .reduce((sum: number, b: any) => sum + Number(b.total_amount), 0) || 0;
 
       setStats({
         totalBookings: totalBookings || 0,
         totalRevenue,
-        totalPassengers: bookings?.reduce((sum, b) => sum + b.seat_numbers.length, 0) || 0,
+        totalPassengers: bookings?.reduce((sum: number, b: any) => sum + b.seat_numbers.length, 0) || 0,
         activeOperators: operatorsCount || 0,
         activeAgents: agentsCount || 0,
         pendingRefunds: pendingRefundsCount || 0,
