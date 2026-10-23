@@ -22,6 +22,12 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      [tableName: string]: {
+        Row: Record<string, any>;
+        Insert: Record<string, any>;
+        Update: Record<string, any>;
+        Relationships?: never[];
+      };
       cities: {
         Row: {
           id: string;
@@ -202,6 +208,7 @@ export interface Database {
           locked_at: string;
           expires_at: string;
           created_at: string;
+          is_active: boolean;
         };
         Insert: {
           id?: string;
@@ -288,6 +295,27 @@ export interface Database {
       clean_expired_locks: {
         Args: {};
         Returns: void;
+      };
+      cleanup_expired_locks: {
+        Args: { p_trip_id?: string | null };
+        Returns: void;
+      };
+      acquire_seat_lock: {
+        Args: {
+          p_seat_id: string;
+          p_trip_id: string;
+          p_session_id: string;
+          p_lock_duration_minutes?: number;
+        };
+        Returns: Json;
+      };
+      release_seat_lock: {
+        Args: { p_seat_id: string; p_trip_id: string; p_session_id: string };
+        Returns: Json;
+      };
+      confirm_booking: {
+        Args: { p_booking_id: string; p_trip_id: string; p_session_id: string };
+        Returns: Json;
       };
     };
     Enums: {};
