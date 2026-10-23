@@ -371,6 +371,20 @@ export interface Database {
         Args: { p_booking_id: string; p_trip_id: string; p_session_id: string };
         Returns: Json;
       };
+      create_guest_booking: {
+        Args: {
+          p_trip_id: string;
+          p_session_id: string;
+          p_seat_numbers: string[];
+          p_full_name: string;
+          p_phone_number: string;
+          p_nrc_number?: string | null;
+          p_payment_method?: string;
+          p_transaction_ref?: string | null;
+          p_total_amount?: number | null;
+        };
+        Returns: Json;
+      };
     };
     Enums: {};
   };
