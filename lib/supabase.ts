@@ -1,9 +1,15 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+const configuredSupabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const configuredSupabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Keep the preview bootable when the optional Supabase integration has not been connected yet.
+// Requests made without real credentials will still fail safely at the call site instead of
+// crashing module evaluation and preventing the app from rendering.
+const supabaseUrl = configuredSupabaseUrl || 'https://placeholder.supabase.co';
+const supabaseAnonKey = configuredSupabaseAnonKey || 'placeholder-anon-key';
+
+export const supabase = createClient<Database>(supabaseUrl, supabaseAnonKey);
 
 export type Json =
   | string
