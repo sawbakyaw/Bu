@@ -229,10 +229,63 @@ export interface Database {
           created_at?: string;
         };
       };
+      passengers: {
+        Row: {
+          id: string;
+          booking_id: string;
+          full_name: string;
+          phone_number: string;
+          nrc_number: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          booking_id: string;
+          full_name: string;
+          phone_number: string;
+          nrc_number?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          booking_id?: string;
+          full_name?: string;
+          phone_number?: string;
+          nrc_number?: string | null;
+          created_at?: string;
+        };
+      };
+      payments: {
+        Row: {
+          id: string;
+          booking_id: string;
+          payment_method: string;
+          transaction_ref: string | null;
+          payment_status: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          booking_id: string;
+          payment_method: string;
+          transaction_ref?: string | null;
+          payment_status?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          booking_id?: string;
+          payment_method?: string;
+          transaction_ref?: string | null;
+          payment_status?: string;
+          created_at?: string;
+        };
+      };
       bookings: {
         Row: {
           id: string;
           booking_reference: string;
+          schedule_id: string | null;
           trip_id: string;
           passenger_name: string;
           passenger_phone: string;
@@ -242,6 +295,7 @@ export interface Database {
           total_amount: number;
           payment_method: string | null;
           payment_status: string;
+          status: string;
           payment_reference: string | null;
           is_foreigner: boolean;
           notes: string | null;
